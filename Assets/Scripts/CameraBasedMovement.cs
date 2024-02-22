@@ -75,5 +75,7 @@ public class CameraBaseMovement : MonoBehaviour
         //apply the rotation to the character
         transform.rotation = lerpedDir;
     }
-    
+
+   
+
 }
