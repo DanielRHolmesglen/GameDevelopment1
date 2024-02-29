@@ -19,6 +19,7 @@ public class CameraBaseMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector3 inputDirection;
 
+
     //stretch goal: ball lock
 
     // Start is called before the first frame update

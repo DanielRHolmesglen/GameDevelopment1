@@ -40,6 +40,7 @@ public class CCMovement : MonoBehaviour
         if(groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
+           
         }
 
         //process player inputs
