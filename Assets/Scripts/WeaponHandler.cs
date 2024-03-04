@@ -16,7 +16,9 @@ public class WeaponHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            if (StaticData.isGamePaused) return;
             anim.SetTrigger("Shoot");
+            
         }
     }
 }
