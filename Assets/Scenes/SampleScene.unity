@@ -1521,6 +1521,7 @@ GameObject:
   - component: {fileID: 1691990968}
   - component: {fileID: 1691990967}
   - component: {fileID: 1691990966}
+  - component: {fileID: 1691990970}
   - component: {fileID: 1691990965}
   - component: {fileID: 1691990964}
   - component: {fileID: 1691990969}
@@ -1645,6 +1646,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 4
   speed: -1
+--- !u!114 &1691990970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691990963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 401570152d1c1cb4fad4258f5a947589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  dead: 0
+  damageAble: 1
+  damageBuffer: 0
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1882129314
 PrefabInstance:
   m_ObjectHideFlags: 0
