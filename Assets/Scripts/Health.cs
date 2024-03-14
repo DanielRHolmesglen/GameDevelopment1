@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
         if (dead) return; //do nothing if already dead
 
         health-= damageAmount;
-        
+
         onDamage.Invoke();
 
         if(health <= 0) //check whether to kill the object

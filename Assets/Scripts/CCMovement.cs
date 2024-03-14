@@ -30,6 +30,7 @@ public class CCMovement : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
+        cam = Camera.main;
     }
 
     // Update is called once per frame
