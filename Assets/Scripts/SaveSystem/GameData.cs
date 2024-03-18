@@ -16,8 +16,8 @@ public class GameData
     
 
     //Game information
-    public float maxRoundTime;
-    public int maxKills;
+    public float maxRoundTime = 120f;
+    public int maxKills = 10;
     //List of all last that have had there score saved
     public string[] lastPlayerNames = new string [2];
     //A collection of the last scores associated with each playerName

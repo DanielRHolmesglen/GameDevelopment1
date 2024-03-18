@@ -5,8 +5,23 @@ using System.Linq;
 public class GameMaster : MonoBehaviour
 {
     //Save file to write all data to
-    GameData saveData = new GameData();
+    public GameData saveData;
 
+    #region singleton pattern
+    public static GameMaster instance;
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
     //hold reference to current players
     [HideInInspector] public PlayerData currentPlayer1;
     [HideInInspector] public PlayerData currentPlayer2;
@@ -15,16 +30,23 @@ public class GameMaster : MonoBehaviour
     public List<PlayerData> tempPlayers = new List<PlayerData>(10);
 
     public bool debugButtons;
+    public bool loadOnStart = true;
     //edit current players data like score and name
     private void Start()
     {
-        saveData = new GameData();
+
+        //attempt to load data on game start
+        if (loadOnStart)
+        {
+            LoadGame();
+        }
+        else
+        {
+            saveData = new GameData();
+            CreateTempList();
+        }
+        
     }
-
-    //add our current players to the list
-    //sort the list from hightest to lowest scores
-
-    //convert the list to simple data arrays
 
     //create a temp list of all players, filled in with data from saveData
     public void CreateTempList()
@@ -48,8 +70,6 @@ public class GameMaster : MonoBehaviour
             //add the new player to the list
             tempPlayers.Add(newPlayer);
         }
-        
-        //SortTempList(tempPlayers);
 
     }
     //sort the list from hightest to lowest scores
@@ -76,7 +96,6 @@ public class GameMaster : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
-            //if (saveData[i] == null) Debug.Log("player not found");
             saveData.playerNames[i] = players[i].playerName;
             saveData.kills[i] = players[i].kills;
             saveData.deaths[i] = players[i].deaths;
@@ -85,10 +104,8 @@ public class GameMaster : MonoBehaviour
     //save the game
     public void SaveGame()
     {
-        if (saveData == null) Debug.Log("No Game data found");
-        if (tempPlayers == null) Debug.Log("No list found");
+        SortTempList(tempPlayers, false);
         SendHighScoresToSaveData(tempPlayers);
-        //input the currentPlayers to save Data
         saveData.lastPlayerNames[0] = currentPlayer1.playerName;
         saveData.lastKills[0] = currentPlayer1.kills;
         saveData.deaths[0] = currentPlayer1.deaths;
@@ -103,7 +120,11 @@ public class GameMaster : MonoBehaviour
     {
         //get a GameData file from the saved game files
         saveData = SaveSystem.instance.LoadGame();
-
+        if (saveData == null)
+        {
+            saveData = new GameData();
+            Debug.Log("no data was found, new file created");
+        }
         //input the new saveData from the loaded Game to the currentPlayer datas
         currentPlayer1.playerName = saveData.lastPlayerNames[0];
         currentPlayer1.kills = saveData.lastKills[0];
@@ -112,7 +133,6 @@ public class GameMaster : MonoBehaviour
         currentPlayer2.playerName = saveData.lastPlayerNames[1];
         currentPlayer2.kills = saveData.lastKills[1];
         currentPlayer2.deaths = saveData.deaths[1];
-
         CreateTempList();
     }
 
@@ -135,9 +155,55 @@ public class GameMaster : MonoBehaviour
         {
             LoadGame();
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RandomFillData();
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            ClearData();
+        }
 
     }
 
+    #region debugging functions
+    void ClearData()
+    {
+        foreach (PlayerData player in tempPlayers)
+        {
+            player.playerName = "";
+            player.kills = 0;
+            player.deaths = 0;
+            player.kd = 0;
+        }
+    }
+    void RandomFillData()
+    {
+        //create possible letters to randomise from
+        string glyphs = "abcdefghijklmnopqrstuvwxyz";
+
+        foreach(PlayerData player in tempPlayers)
+        {
+            //generate a random name for the temp player
+            int charAmount = Random.Range(3, 10);
+            player.playerName = "";
+            for (int i = 0; i < charAmount; i++)
+            {
+                player.playerName += glyphs[Random.Range(0, glyphs.Length)];
+            }
+            //generate random Kills score
+            player.kills = Random.Range(0, 20);
+            //generate random deaths
+            player.deaths = Random.Range(0, 20);
+            //calculate kd
+            if (player.deaths == 0) player.kd = player.kills;
+            else player.kd = player.kills / player.deaths;
+        }
+
+    }
+    #endregion
+
+    #region old code
     //No Longer in Use
     /*
      * if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -170,4 +236,5 @@ public class GameMaster : MonoBehaviour
         Debug.Log("The current score is " + saveData.score);
     }
      */
+    #endregion
 }
