@@ -39,7 +39,7 @@ public class Health : MonoBehaviour
     }
     
     /// <summary>
-    /// 
+    /// What Happens when the object is killed
     /// </summary>
     public virtual void Die()
     {
