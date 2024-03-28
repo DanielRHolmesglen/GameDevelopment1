@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5383396241593675260}
   - component: {fileID: 8570058198371866635}
   - component: {fileID: 2117116711168863987}
+  - component: {fileID: -1226442540825154995}
   m_Layer: 0
   m_Name: CharacterController
   m_TagString: Untagged
@@ -190,6 +191,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 1
   amount: 1
+--- !u!114 &-1226442540825154995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3795188207848679571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99115ad0e27373489fe7836a74fa916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  dead: 0
+  damageAble: 1
+  damageBuffer: 0
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  lastDamagedBy: 0
+  playerNum: 1
 --- !u!1 &4260565478086420443
 GameObject:
   m_ObjectHideFlags: 0

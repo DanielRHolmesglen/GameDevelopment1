@@ -20,6 +20,8 @@ public class RaycastGun : MonoBehaviour, IShootable
 
     public float damageAmout;
     public ParticleSystem muzzleFlash, hitFlash;
+
+    public int playerNumber;
     // Start is called before the first frame update
     void Start()
     {
@@ -79,10 +81,21 @@ public class RaycastGun : MonoBehaviour, IShootable
 
     void DealDamage(GameObject target)
     {
-        Health script = target.GetComponent<Health>();
-        if (script == null) return;
-
-        script.TakeDamage(damageAmout);
+        //attempt to get the player health script on the target of your attack
+        PlayerHealth script = target.GetComponent<PlayerHealth>();
+        if (script != null) //if the player health script was found, deal damage to the player
+        {
+            script.lastDamagedBy = playerNumber;
+            script.TakeDamage(damageAmout);
+            script.StopCoroutine(script.ResetDamagedBy());
+            script.StartCoroutine(script.ResetDamagedBy());
+        }
+        else //if no playerhealth was found, check if the regular health script was found and try to damage that
+        {
+            Health hScript = target.GetComponent<Health>();
+            if (hScript == null) return; //if no script was found for that either, then cancel
+            script.TakeDamage(damageAmout);
+        }
     }
 
     void DeactivateEffects()
