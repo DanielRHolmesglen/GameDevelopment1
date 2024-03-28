@@ -22,6 +22,8 @@ public class Health : MonoBehaviour
     /// <param name="damageAmount"> the amount of damage to remove from a characters health value</param>
     public void TakeDamage(float damageAmount)
     {
+        Debug.Log("I was hit for " + damageAmount + " of damage");
+
         if (!damageAble) return; //do nothing if recently damaged
         if (dead) return; //do nothing if already dead
 
