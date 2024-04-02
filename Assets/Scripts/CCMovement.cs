@@ -25,11 +25,18 @@ public class CCMovement : MonoBehaviour
     public bool groundedPlayer;
 
 
+    //MULTIPLAYER INPUTS
+    public int playerNumber;
+    private string hInput;
+    private string vInput;
+
+
     // Start is called before the first frame update
     void Start()
     {
         cc = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
+
         cam = Camera.main;
     }
 
@@ -101,4 +108,25 @@ public class CCMovement : MonoBehaviour
         playerVelocity.y += gravityForce * Time.deltaTime;
         cc.Move(playerVelocity * Time.deltaTime);
     }
+
+    private void SetUpInputs()
+    {
+        switch (playerNumber)
+        {
+            case 1:
+                hInput = "Horizontal1";
+                vInput = "Vertical1";
+                cam = GameObject.FindGameObjectWithTag("Player1Camera").GetComponent<Camera>();
+                break;
+            case 2:
+                hInput = "Horizontal2";
+                vInput = "Vertical2";
+                break;
+            case 0:
+                Debug.Log("No player number assigned. Controls could not be selected");
+                break;
+        }
+
+    }
+
 }

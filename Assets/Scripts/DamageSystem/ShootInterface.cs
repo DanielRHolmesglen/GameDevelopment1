@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IShootable
 {
-   void Shoot(); 
+   void Shoot();
+    GameObject gameObject { get; }
 }

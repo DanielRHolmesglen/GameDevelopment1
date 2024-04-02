@@ -4,24 +4,35 @@ using UnityEngine;
 
 public class RaycastGun : MonoBehaviour, IShootable
 {
-    //accuracy settings
-    public float range = 10f, spread = 0.8f;
+    [Header("Damage Settings")]
+    public int playerNumber;
+    public float damageAmout;
+    public float fireRate;
+    private float lastShotTime;
+
+    [Header("Accuracy Settings")]//accuracy settings
+    public float range = 10f;
+    public float spread = 0.8f;
     public int numberOfrays = 12;
 
     [SerializeField] Transform barrelEnd;
+
+    [Header("Effects and Components")] //effects settings
+    public float effectTime = 0.5f;
+    public ParticleSystem muzzleFlash, hitFlash;
+    LineRenderer line;
+
+
     Ray ray;
     RaycastHit hit;
 
+    [Space]
     public bool debugging = false;
 
-    //effects settings
-    LineRenderer line;
-    float effectTime = 0.5f;
+    
+   
+    
 
-    public float damageAmout;
-    public ParticleSystem muzzleFlash, hitFlash;
-
-    public int playerNumber;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +47,9 @@ public class RaycastGun : MonoBehaviour, IShootable
 
     public void Shoot()
     {
+        if (Time.time - lastShotTime < fireRate) return;
+        lastShotTime = Time.time;
+
         //calculate Ray positions
         Vector3 leftSide = barrelEnd.position + (barrelEnd.right * -spread);
         Vector3 rightSide = barrelEnd.position + (barrelEnd.right * spread);
