@@ -42,7 +42,7 @@ public class RaycastGun : MonoBehaviour, IShootable
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V)) Shoot();
+       // if (Input.GetKeyDown(KeyCode.V)) Shoot();
     }
 
     public void Shoot()

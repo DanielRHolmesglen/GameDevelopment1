@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -1226442540825154995}
   - component: {fileID: 1650677606959335617}
   m_Layer: 0
-  m_Name: CharacterController
+  m_Name: CharacterController2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -138,7 +138,7 @@ MonoBehaviour:
   target: {fileID: 0}
   shouldLook: 1
   groundedPlayer: 0
-  playerNumber: 1
+  playerNumber: 2
 --- !u!114 &-1226442540825154995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   lastDamagedBy: 0
-  playerNum: 1
+  playerNum: 2
 --- !u!114 &1650677606959335617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4970317bae71c454488f29c7db33fe2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
+  playerNumber: 2
   canSwap: 0
   weapons:
   - {fileID: 8414400719570294742}
@@ -274,6 +274,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5032280652832554128}
     m_Modifications:
+    - target: {fileID: 5868315112045135981, guid: dd1c492a26abb784fbcc347bcf9902e1,
+        type: 3}
+      propertyPath: playerNumber
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7367038091989919987, guid: dd1c492a26abb784fbcc347bcf9902e1,
         type: 3}
       propertyPath: m_Name

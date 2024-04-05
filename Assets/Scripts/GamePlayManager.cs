@@ -161,6 +161,10 @@ public class GamePlayManager : MonoBehaviour
         currentPlayer.GetComponent<CCMovement>().enabled = true;
         //add all the other scripts you need to activate or reset e.g.
         //health reset, animation state changed, weapons reactivated etc
+        currentPlayer.GetComponentInChildren<Animator>().SetBool("Dead", false);
+        PlayerHealth healthScript = currentPlayer.GetComponent<PlayerHealth>();
+        healthScript.health = healthScript.maxHealth;
+        healthScript.dead = false;
     }
 
     //Display the timer

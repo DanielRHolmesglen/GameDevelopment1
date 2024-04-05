@@ -8,7 +8,8 @@ using UnityEngine.Events;
 /// </summary>
 public class Health : MonoBehaviour
 {
-    public float health;
+    public float maxHealth;
+    [HideInInspector] public float health;
     public bool dead = false;
     [SerializeField] private bool damageAble = true; //used for buffer times between taking damage
     [SerializeField] private float damageBuffer; //the amount of time after being damaged to wait before damage can be re-applied;
@@ -16,6 +17,10 @@ public class Health : MonoBehaviour
     public UnityEvent onDamage; //use to extend the TakeDamage functions uses
     public UnityEvent onDeath; //use to extend the Die functions uses
 
+    private void Start()
+    {
+        health = maxHealth;
+    }
     /// <summary>
     /// Call this function to remove health from the character
     /// </summary>

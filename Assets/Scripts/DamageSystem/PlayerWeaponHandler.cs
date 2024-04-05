@@ -9,8 +9,9 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     [Header("Weapons")]
     public bool canSwap = false;
-    public List<IShootable> weapons = new List<IShootable>();
-    public int currentWeapon = 0;
+    public List<GameObject> weapons = new List<GameObject>();
+    public int currentWeaponIndex = 0;
+    private IShootable currentWeapon;
 
     private KeyCode shootKey; //what button will trigger the shooting. This is set depending on the player number
     private KeyCode swap; //what button will swap the weapon. this is set depending on the player number again.
@@ -19,7 +20,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     void Start()
     {
         SetUpInputs();
-        currentWeapon = 0;
+        currentWeaponIndex = 0;
         ActivateSelectedWeapon();
     }
     private void Update()
@@ -29,20 +30,21 @@ public class PlayerWeaponHandler : MonoBehaviour
     }
     private void Swap()
     {
-        currentWeapon = currentWeapon + 1 % weapons.Count;
+        currentWeaponIndex = currentWeaponIndex + 1 % weapons.Count;
         ActivateSelectedWeapon();
     }
     private void Fire()
     {
-        weapons[currentWeapon].Shoot();
+        currentWeapon.Shoot();
     }
     private void ActivateSelectedWeapon()
     {
         for (int i = 0; i < weapons.Count; i++)
         {
-            if (i == currentWeapon)
+            if (i == currentWeaponIndex)
             {
                 weapons[i].gameObject.SetActive(true);
+                currentWeapon = weapons[i].GetComponent<IShootable>();
             }
             else weapons[i].gameObject.SetActive(false);
         }
@@ -56,8 +58,8 @@ public class PlayerWeaponHandler : MonoBehaviour
                 swap = KeyCode.C;
                 break;
             case 2:
-                shootKey = KeyCode.V;
-                swap = KeyCode.C;
+                shootKey = KeyCode.Comma;
+                swap = KeyCode.Period;
                 break;
             case 0:
                 Debug.Log("No player number assigned. Controls could not be selected");

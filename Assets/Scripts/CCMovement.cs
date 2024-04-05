@@ -36,8 +36,7 @@ public class CCMovement : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
-
-        cam = Camera.main;
+        SetUpInputs();
     }
 
     // Update is called once per frame
@@ -48,12 +47,11 @@ public class CCMovement : MonoBehaviour
         if(groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
-           
         }
 
         //process player inputs
-        float h = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        float h = Input.GetAxis(hInput);
+        float z = Input.GetAxis(vInput);
 
         //get camera direction
         Vector3 camX = cam.transform.right;
@@ -121,6 +119,7 @@ public class CCMovement : MonoBehaviour
             case 2:
                 hInput = "Horizontal2";
                 vInput = "Vertical2";
+                cam = GameObject.FindGameObjectWithTag("Player1Camera").GetComponent<Camera>();
                 break;
             case 0:
                 Debug.Log("No player number assigned. Controls could not be selected");
