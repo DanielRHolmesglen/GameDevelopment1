@@ -12,7 +12,7 @@ public class PlayerFOVManager : MonoBehaviour
     private void Start()
     {
         fov = GetComponent<FieldOfView>();
-        moveScript = GetComponent<CCMovement>();
+        moveScript = GetComponentInParent<CCMovement>();
         StartCoroutine(FindTargetsWithDelay(checkFrequency));
     }
     IEnumerator FindTargetsWithDelay(float delay)
@@ -28,7 +28,7 @@ public class PlayerFOVManager : MonoBehaviour
     {
         for (int i = 0; i < fov.targets.Count; i++)
         {
-            if(fov.targets[i].tag == "Player" && fov.targets[i] != transform)
+            if(fov.targets[i].tag == "Player" && fov.targets[i] != transform.root)
             {
                 target = fov.targets[i];
                 moveScript.target = target;

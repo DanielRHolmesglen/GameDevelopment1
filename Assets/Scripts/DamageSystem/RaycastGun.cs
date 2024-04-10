@@ -29,20 +29,10 @@ public class RaycastGun : MonoBehaviour, IShootable
     [Space]
     public bool debugging = false;
 
-    
-   
-    
-
     // Start is called before the first frame update
     void Start()
     {
         line = GetComponent<LineRenderer>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       // if (Input.GetKeyDown(KeyCode.V)) Shoot();
     }
 
     public void Shoot()

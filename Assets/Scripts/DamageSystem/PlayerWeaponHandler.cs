@@ -30,7 +30,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     }
     private void Swap()
     {
-        currentWeaponIndex = currentWeaponIndex + 1 % weapons.Count;
+        currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Count;
         ActivateSelectedWeapon();
     }
     private void Fire()
