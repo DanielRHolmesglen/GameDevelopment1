@@ -1609,6 +1609,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterController2
       objectReference: {fileID: 0}
+    - target: {fileID: 3795188207848679571, guid: cab277de35836ff4da43b9571241a16c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6114040405559728171, guid: cab277de35836ff4da43b9571241a16c,
         type: 3}
       propertyPath: m_LocalPosition.x
