@@ -19,7 +19,7 @@ public class ProjectileGun : MonoBehaviour, IShootable
 
     [Header("Effects and Components")] //effects settings
     public float effectTime = 0.5f;
-    public ParticleSystem muzzleFlash, hitFlash;
+    public ParticleSystem muzzleFlash;
     LineRenderer line;
 
     [Space]

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -1226442540825154995}
   - component: {fileID: 1650677606959335617}
   m_Layer: 6
-  m_Name: CharacterController
+  m_Name: CharacterController1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,6 +164,7 @@ MonoBehaviour:
       m_Calls: []
   lastDamagedBy: 0
   playerNum: 1
+  slider: {fileID: 0}
 --- !u!114 &1650677606959335617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,6 +276,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5032280652832554128}
     m_Modifications:
+    - target: {fileID: 5868315112045135981, guid: dd1c492a26abb784fbcc347bcf9902e1,
+        type: 3}
+      propertyPath: spread
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868315112045135981, guid: dd1c492a26abb784fbcc347bcf9902e1,
+        type: 3}
+      propertyPath: numberOfrays
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 7367038091989919987, guid: dd1c492a26abb784fbcc347bcf9902e1,
         type: 3}
       propertyPath: m_Name
@@ -589,8 +600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b38f2122ae0aa74c980a54d7fe3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 8.35
-  viewAngle: 91
+  radius: 15
+  viewAngle: 90
   obsticleMask:
     serializedVersion: 2
     m_Bits: 128

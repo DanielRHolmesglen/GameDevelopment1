@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
     /// Call this function to remove health from the character
     /// </summary>
     /// <param name="damageAmount"> the amount of damage to remove from a characters health value</param>
-    public void TakeDamage(float damageAmount)
+    public virtual void TakeDamage(float damageAmount)
     {
         Debug.Log("I was hit for " + damageAmount + " of damage");
 

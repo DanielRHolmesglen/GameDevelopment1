@@ -25,15 +25,17 @@ public class Projectile : MonoBehaviour
     }
     private void OnDisable()
     {
-        StopProjectile();
+        //StopProjectile();
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player" && canDamage == true)
         {
             if (other.GetComponent<PlayerHealth>().playerNum == playerNumber) return;
+            
             Explode();
             StopProjectile();
+
         }
         
     }
@@ -56,7 +58,7 @@ public class Projectile : MonoBehaviour
     IEnumerator DisableObject()
     {
         yield return new WaitForSeconds(1);
-        GetComponent<Renderer>().enabled = true;
+        //GetComponent<Renderer>().enabled = true;
         explosion.SetActive(false);
         gameObject.SetActive(false);
         yield return null;

@@ -96,12 +96,12 @@ public class GamePlayManager : MonoBehaviour
         //if playerNumber is 1, increase player1 score, otherwise increase player 2
         if (playerNumber == 1)
         {
-            GameMaster.instance.currentPlayer1.kills += amount;
+           if(GameMaster.instance != null) GameMaster.instance.currentPlayer1.kills += amount;
             player1Score += amount;
         }
         else
         {
-            GameMaster.instance.currentPlayer2.kills += amount;
+            if (GameMaster.instance != null) GameMaster.instance.currentPlayer2.kills += amount;
             player2Score += amount;
         }
 
@@ -262,7 +262,7 @@ public class GamePlayManager : MonoBehaviour
 
         messageText.text = winningPlayer + " Wins!" + "\n" + player1Name + " : " + player1Score + "\n" + player2Name + " : " + player2Score;
 
-        GameMaster.instance.SortTempList(GameMaster.instance.tempPlayers, true);
-        GameMaster.instance.SaveGame();
+        if (GameMaster.instance != null)  GameMaster.instance.SortTempList(GameMaster.instance.tempPlayers, true);
+        if (GameMaster.instance != null)  GameMaster.instance.SaveGame();
     }
 }

@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IShootable
 {
    void Shoot();
-    GameObject gameObject { get; }
+   GameObject gameObject { get; }
 }
