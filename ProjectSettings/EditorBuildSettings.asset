@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ScoreBoard.unity
     guid: 8f4ba50c943c8b84f939c4546b9dbed1
+  - enabled: 1
+    path: Assets/Scenes/ConnectToServer.unity
+    guid: 587fb3bd256154044961f08dcf6f621e
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
