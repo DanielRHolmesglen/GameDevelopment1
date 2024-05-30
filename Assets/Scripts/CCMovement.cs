@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class CCMovement : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class CCMovement : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] Camera cam;
     [SerializeField] Transform model;
+    [SerializeField] PhotonView view;
 
     [Header("Targetting")]
     public Transform target;
@@ -29,6 +32,7 @@ public class CCMovement : MonoBehaviour
     public int playerNumber;
     private string hInput;
     private string vInput;
+    public bool isOnline = false;
 
 
     // Start is called before the first frame update
@@ -36,12 +40,16 @@ public class CCMovement : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
+        if (isOnline) view = GetComponent<PhotonView>();
+
         SetUpInputs();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isOnline && view.IsMine == false) return; //ADDED LINE FOR ONLINE PLAY
+
         //process gravity: check if grounded and reduce velocity if so
         groundedPlayer = cc.isGrounded;
         if(groundedPlayer && playerVelocity.y < 0)
@@ -109,6 +117,13 @@ public class CCMovement : MonoBehaviour
 
     private void SetUpInputs()
     {
+        if (isOnline)
+        {
+            hInput = "Horizontal1";
+            vInput = "Vertical1";
+            cam = GameObject.FindGameObjectWithTag("Player1Camera").GetComponent<Camera>();
+            return;
+        }
         switch (playerNumber)
         {
             case 1:

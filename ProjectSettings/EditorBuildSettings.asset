@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ConnectToServer.unity
     guid: 587fb3bd256154044961f08dcf6f621e
+  - enabled: 1
+    path: Assets/Scenes/OnlineGamePlay.unity
+    guid: be7af05b6520fc142a66d5c4c0e65346
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
