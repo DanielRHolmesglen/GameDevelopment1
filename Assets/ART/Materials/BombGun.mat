@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Spikey
+  m_Name: BombGun
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -28,11 +28,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 50fc7dff63091a24c9b6add82be9a5db, type: 3}
+        m_Texture: {fileID: 2800000, guid: ef5f581b75221b44b87092bb685ce853, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 6e93c45409ef7754191db77a038e299e, type: 3}
+        m_Texture: {fileID: 2800000, guid: b5ba210ef1d74cd409c25ec29dc5166c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -52,11 +52,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 50fc7dff63091a24c9b6add82be9a5db, type: 3}
+        m_Texture: {fileID: 2800000, guid: ef5f581b75221b44b87092bb685ce853, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 221b64b6f782315449a661faadf56f3d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3a737204aa9577f4a9e96142de1f9fe1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
