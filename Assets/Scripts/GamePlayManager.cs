@@ -72,14 +72,19 @@ public class GamePlayManager : MonoBehaviour, IOnEventCallback
     {
         if(data.Code == TIMER_UPDATE)
         {
+            Debug.Log("Recieved TimerEvent");
             object[] localData = (object[])data.CustomData;
             timerText.text = (string)localData[0];
         }
-        else if (data.Code == UPDATE_NAMES)
+        else if (data.Code == UPDATE_NAMES) //recieve the name update event
         {
-            object[] localData = (object[])data.CustomData;
-            player1Name = (string)localData[0];
-            player2Name = (string)localData[1];
+            Debug.Log("Recieved update names event");
+            object[] localData = (object[])data.CustomData; //collect data from the event
+            player1Name = (string)localData[0]; //store the name
+            player2Name = (string)localData[1]; //store the name
+            //force the ui to update after updating the name
+            player1ScoreText.text = player1Name + " : " + player1Score;
+            player2ScoreText.text = player2Name + " : " + player2Score;
         }
     }
     #endregion
