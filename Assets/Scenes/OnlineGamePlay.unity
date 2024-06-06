@@ -1842,6 +1842,7 @@ GameObject:
   - component: {fileID: 2046528070}
   - component: {fileID: 2046528071}
   - component: {fileID: 2046528072}
+  - component: {fileID: 2046528073}
   m_Layer: 0
   m_Name: GamePlayManager
   m_TagString: Untagged
@@ -1894,7 +1895,7 @@ MonoBehaviour:
   - {fileID: 587179931}
   player1Prefab: {fileID: 3795188207848679571, guid: 50286e6039286f5458eb635cfd7f569b,
     type: 3}
-  player2Prefab: {fileID: 3795188207848679571, guid: 50286e6039286f5458eb635cfd7f569b,
+  player2Prefab: {fileID: 3795188207848679571, guid: 5eeede3d263e9bb47ba80b74539948cf,
     type: 3}
   player1: {fileID: 0}
   player2: {fileID: 0}
@@ -1905,6 +1906,7 @@ MonoBehaviour:
   timerText: {fileID: 1067686838}
   messageText: {fileID: 915020516000652577}
   gameTimer: {fileID: 2046528072}
+  view: {fileID: 0}
 --- !u!114 &2046528072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1938,6 +1940,28 @@ MonoBehaviour:
         m_CallState: 2
   IsRunning: 0
   CurrentTime: 0
+--- !u!114 &2046528073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046528069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &915020516000652574
 PrefabInstance:
   m_ObjectHideFlags: 0

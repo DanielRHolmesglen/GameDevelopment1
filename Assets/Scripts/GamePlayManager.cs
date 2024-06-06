@@ -34,7 +34,7 @@ public class GamePlayManager : MonoBehaviour, IOnEventCallback
     [HideInInspector] public GameObject player1;
     [HideInInspector] public GameObject player2;
 
-    
+
 
     //store player data
     public string player1Name, player2Name;
@@ -53,7 +53,7 @@ public class GamePlayManager : MonoBehaviour, IOnEventCallback
     [Header("Other Components")]
     //store a timer
     public Timer gameTimer;
-    PhotonView view;
+    public PhotonView view;
 
     #endregion
 
@@ -70,16 +70,19 @@ public class GamePlayManager : MonoBehaviour, IOnEventCallback
     //listen to events, and respond locally
     public void OnEvent(EventData data)
     {
-        if(data.Code == TIMER_UPDATE)
+        if (data.Code == TIMER_UPDATE) //check what event you recieved
         {
-            object[] localData = (object[])data.CustomData;
-            timerText.text = (string)localData[0];
+            object[] localData = (object[])data.CustomData; //get the data from the event and make it local
+            timerText.text = (string)localData[0]; //using the data, remembering to cast the data as the proper type
         }
-        else if (data.Code == UPDATE_NAMES)
+        if (data.Code == UPDATE_NAMES)//check what event you recieved
         {
-            object[] localData = (object[])data.CustomData;
+            object[] localData = (object[])data.CustomData;//get the data from the event and make it local
             player1Name = (string)localData[0];
             player2Name = (string)localData[1];
+            //update the score UI
+            player1ScoreText.text = player1Name + " : " + player1Score;
+            player2ScoreText.text = player2Name + " : " + player2Score;
         }
     }
     #endregion
@@ -99,7 +102,7 @@ public class GamePlayManager : MonoBehaviour, IOnEventCallback
     void Start()
     {
         //if a Gamemaster exists, then use it's data
-        if(GameMaster.instance != null)
+        if (GameMaster.instance != null)
         {
             maxScore = GameMaster.instance.saveData.maxKills; //remember in your game, you may change maxKills to something else
             gameDuration = GameMaster.instance.saveData.maxRoundTime;
@@ -117,30 +120,33 @@ public class GamePlayManager : MonoBehaviour, IOnEventCallback
                 object[] data = new object[] { player1Name, player2Name };
                 PhotonNetwork.RaiseEvent(UPDATE_NAMES, data, RaiseEventOptions.Default, SendOptions.SendUnreliable);
             }
-            
+
         }
+        view = GetComponent<PhotonView>();
         SetupGame();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(gameState == State.Gameplay)
+        if (gameState == State.Gameplay)
         {
             DisplayTimer();
         }
     }
 
     //Score update function - increase one players score, check if game is over, update UI
+    [PunRPC]
     public void UpdateScore(int playerNumber, int amount)
     {
+        Debug.Log("Attempt to update score");
         //cancel the function if we are not in gameplay
         if (gameState != State.Gameplay) return;
 
         //if playerNumber is 1, increase player1 score, otherwise increase player 2
         if (playerNumber == 1)
         {
-           if(GameMaster.instance != null) GameMaster.instance.currentPlayer1.kills += amount;
+            if (GameMaster.instance != null) GameMaster.instance.currentPlayer1.kills += amount;
             player1Score += amount;
         }
         else
@@ -165,40 +171,47 @@ public class GamePlayManager : MonoBehaviour, IOnEventCallback
 
     //respawns - find player to respawn, deactivate controls, decrease lives*, 
     //disable player, move to spawn point, reset data, reactivate player, check for end of game if relevant
+    [PunRPC]
     public void SpawnPlayer(int playerNumber)
     {
-        //Pick which player to spawn
-        GameObject currentPlayer;
-        if (playerNumber == 1) currentPlayer = player1;
-        else currentPlayer = player2;
+        Debug.Log("Attempt to spawn");
+       
+            Debug.Log("Attempt to spawn as Master Client");
+            //Pick which player to spawn
+            GameObject currentPlayer;
+            if (playerNumber == 1) currentPlayer = player1;
+            else currentPlayer = player2;
 
-        //disable any scripts
-        currentPlayer.GetComponent<CCMovement>().enabled = false;
-        //add all the scripts you want to disable here.
+            //disable any scripts
+            currentPlayer.GetComponent<CCMovement>().enabled = false;
+            //add all the scripts you want to disable here.
 
-        //call the reactivation of the player
-        StartCoroutine(FinishSpawn(currentPlayer));
-
+            //call the reactivation of the player
+            StartCoroutine(FinishSpawn(currentPlayer));
+       
     }
     private IEnumerator FinishSpawn(GameObject currentPlayer)
     {
         //wait incase animations need to play
         yield return new WaitForSeconds(2f);
 
-        //pick a random number to spawn from
-        int spawnIndex = Random.Range(0, respawnPositions.Length);
+      
+            //pick a random number to spawn from
+            int spawnIndex = Random.Range(0, respawnPositions.Length);
 
-        //check if the spawn index matches either previous spawn, if so, reroll
-        while(spawnIndex == lastSpawnP1 || spawnIndex == lastSpawnP2)
-        {
-            spawnIndex = Random.Range(0, respawnPositions.Length);
-        }
+            //check if the spawn index matches either previous spawn, if so, reroll
+            while (spawnIndex == lastSpawnP1 || spawnIndex == lastSpawnP2)
+            {
+                spawnIndex = Random.Range(0, respawnPositions.Length);
+            }
 
-        //move player to spawn point
-        currentPlayer.transform.position = respawnPositions[spawnIndex].position;
-        //store new last position
-        if (currentPlayer == player1) lastSpawnP1 = spawnIndex;
-        else lastSpawnP2 = spawnIndex;
+            //move player to spawn point
+            currentPlayer.transform.position = respawnPositions[spawnIndex].position;
+            //store new last position
+            if (currentPlayer == player1) lastSpawnP1 = spawnIndex;
+            else lastSpawnP2 = spawnIndex;
+        
+        
 
         yield return new WaitForSeconds(0.5f);
         //reactivate all scripts and reset all data
@@ -274,6 +287,26 @@ public class GamePlayManager : MonoBehaviour, IOnEventCallback
         messageText.text = "Get Ready";
         //run the intro sequence coroutine
         StartCoroutine(IntroSequence());
+
+        //if online find all the characters and store them in variables
+        if(isOnline) Invoke("FindOnlinePlayers", 2);
+    }
+    public void FindOnlinePlayers()
+    {
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player"); //get all the player objects in an array
+
+        //loop through each player and assign to correct variable
+        foreach(GameObject player in playerObjects)
+        {
+            if(player.GetComponent<CCMovement>().playerNumber == 1)
+            {
+                player1 = player;
+            }
+            if (player.GetComponent<CCMovement>().playerNumber == 2)
+            {
+                player2 = player;
+            }
+        }
     }
     //intro coroutine
     private IEnumerator IntroSequence()
